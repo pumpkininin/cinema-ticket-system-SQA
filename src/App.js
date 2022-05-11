@@ -7,19 +7,22 @@ import HomePage from './pages/homepage/HomePage';
 import LoginPage from './pages/loginpage/LoginPage';
 import MovieDetail from './pages/movie-details/MovieDetail';
 import TheaterRoomPage from './pages/theater-room-page/TheaterRoomPage';
+import { AuthContextProvider } from './store/auth-context';
 
 function App() {
   return (
     <div className="App">
       <Header></Header>
-      <Routes>
-        <Route path='/' element={<HomePage/>} />
-        <Route path='/login' element={<LoginPage/>} />
-        <Route path='/booking/moive-detail/:id' element={<MovieDetail/>} />
-        <Route path='/booking/moive-detail/:id/room' element={<TheaterRoomPage/>} />
-        <Route path='/booking/moive-detail/:id/room/combo' element={<ComboPage/>} />
-      </Routes>
-      
+      <AuthContextProvider>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/booking/moive-detail/:id' element={<MovieDetail />} />
+          <Route path='/booking/moive-detail/:id/room' element={<TheaterRoomPage />} />
+          <Route path='/booking/moive-detail/:id/room/combo' element={<ComboPage />} />
+        </Routes>
+      </AuthContextProvider>
+
       {/* <Profile></Profile> */}
       {/* <LoginPage></LoginPage>
       <HomePage></HomePage>
