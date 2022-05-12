@@ -1,12 +1,23 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Trailer from "../../trailer/Trailer"
 
 const MovieInfo = (props) => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const params = useParams();
   const { id } = params;
   const location = useLocation();
   const pathName = location.pathname;
   const selectingSeat = pathName.includes("room");
+
+
+  const playTrailer = () => {
+    setIsPlaying(true)
+  }
+  const closeTrailerHandler = () => {
+    setIsPlaying(false)
+  }
   return (
     <div className="movie-info-section row m-3">
       <div className="poster-holder col-6">
@@ -28,9 +39,12 @@ const MovieInfo = (props) => {
         <p className="my-2">Genre: name1, name2, name3, name4</p>
         <p className="my-2">Opening day: 1/1/2022</p>
         <p className="my-2">Duration: 120mins</p>
+        
+        {isPlaying && <Trailer videoId="3xccmeAsy8g" onClose = {closeTrailerHandler}></Trailer>}
+
         {!selectingSeat ? (
           <div className="my-5 buttons d-flex flex-row justify-content-between">
-            <button className="p-4 movie-btn">Watch trailer</button>
+            <button onClick={playTrailer} className="p-4 movie-btn">Watch trailer</button>
             <Link
               to={`/booking/moive-detail/${id}/room`}
               className="p-4 movie-btn"

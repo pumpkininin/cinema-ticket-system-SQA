@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import Header from '../../components/header/Header'
-import MovieInfo from '../../components/movie-info/MovieInfo';
-import MovieTimeTableList from '../../components/movie-timetables/MovieTimeTableList';
+import Header from '../../UI/header/Header'
+import MovieInfo from '../../components/movie/movie-info/MovieInfo';
+import MovieTimeTableList from '../../components/movie/movie-timetables/MovieTimeTableList';
 import TimeLine from '../../components/time-line/TimeLine';
 
 const MovieDetail = (props) => {

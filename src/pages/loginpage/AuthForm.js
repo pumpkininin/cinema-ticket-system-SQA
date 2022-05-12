@@ -27,19 +27,20 @@ const AuthForm = () => {
         setIsLoading(true);
         let url;
         if (isLogin) {
-            url = "login"
+            url = "http://127.0.0.1:8080/api/auth/login"
         } else {
-            url = "login"
+            url = "http://127.0.0.1:8080/api/auth/signup"
         }
+        
         fetch(url, {
             method: 'POST',
-            body: MediaKeySession.stringify({
+            body: JSON.stringify({
                 username: enteredUsername,
-                password: enteredPassword,
-                returnSecureToken: true,
+                password: enteredPassword
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
         })
             .then((res) => {
@@ -53,7 +54,7 @@ const AuthForm = () => {
                 }
             }
             )
-            .then((date) => {
+            .then((data) => {
                 console.log(data);
             })
             .catch((err) => {
@@ -67,14 +68,14 @@ const AuthForm = () => {
             <form>
                 <div className={classes.control}>
                     <label htmlFor='username'>Your Username</label>
-                    <input type='text' id='username' required />
+                    <input type='text' id='username' ref={usernameInputRef} required />
                 </div>
                 <div className={classes.control}>
                     <label htmlFor='password'>Your Password</label>
-                    <input type='password' id='password' required />
+                    <input type='password' id='password' ref={passwordInputRef} required />
                 </div>
                 <div className={classes.actions}>
-                    <button>{isLogin ? 'Login' : 'Create Account'}</button>
+                    <button onClick={submitHandler}>{isLogin ? 'Login' : 'Create Account'}</button>
                     <button
                         type='button'
                         className={classes.toggle}

@@ -1,5 +1,5 @@
 import MovieTimeItem from "../movie-timetable/MovieTimeItem";
-import TheaterInfo from "../theater-info/TheaterInfo";
+import TheaterInfo from "../../theater-info/TheaterInfo";
 
 const MovieTimeTableList = (props) => {
   return (

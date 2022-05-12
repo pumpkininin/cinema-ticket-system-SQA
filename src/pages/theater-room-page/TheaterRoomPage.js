@@ -1,4 +1,4 @@
-import MovieInfo from "../../components/movie-info/MovieInfo";
+import MovieInfo from "../../components/movie/movie-info/MovieInfo";
 import SeatRow from "../../components/seat-row/SeatRow";
 
 const TheaterRoomPage = (props) => {

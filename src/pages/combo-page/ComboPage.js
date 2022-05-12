@@ -1,4 +1,4 @@
-import ComboList from "../../components/combo-list/ComboList";
+import ComboList from "../../components/combo/combo-list/ComboList";
 
 const ComboPage = (props) => {
     return (
