@@ -1,4 +1,5 @@
 import { useState, useRef, useContext } from 'react';
+import {useNavigate} from 'react-router-dom'
 import AuthContext from '../../store/auth-context';
 
 import classes from './AuthForm.module.css';
@@ -9,7 +10,7 @@ const AuthForm = () => {
 
     const authCtx = useContext(AuthContext);
 
-
+    const navigate = useNavigate();
 
     const [isLogin, setIsLogin] = useState(true);
     const [isLoading, setIsLoading] = useState(true);;
@@ -41,6 +42,7 @@ const AuthForm = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
+            
             },
         })
             .then((res) => {
@@ -55,7 +57,8 @@ const AuthForm = () => {
             }
             )
             .then((data) => {
-                console.log(data);
+                authCtx.login(data.jwt);
+                navigate("/")
             })
             .catch((err) => {
                 alert(err.message)

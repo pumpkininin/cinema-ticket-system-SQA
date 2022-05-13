@@ -7,7 +7,9 @@ const MovieTimeTableList = (props) => {
       <div className="movie-timetable--theater row">
         <TheaterInfo></TheaterInfo>
         <div className="movie-time-items col-8">
-          <MovieTimeItem></MovieTimeItem>
+          {
+            props.movie.showSet !== undefined && Array.from(props.movie.showSet).map(show => (<MovieTimeItem show={show}/>))
+          }
         </div>
       </div>
     </div>

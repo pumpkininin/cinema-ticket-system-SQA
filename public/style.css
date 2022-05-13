@@ -47,9 +47,10 @@ body::after{
  :-ms-input-placeholder {  
     text-align: center; 
  }
-.movie-title{
+.movieTitle{
     text-align: center;
     color: white;
+
 }
 .buy-btn{
     width: 200px;
@@ -146,22 +147,18 @@ Combo
 /*
 theater room
 */
-/* .poster-holder {
+.poster-holder {
     width: 100%;
     position: relative;
+    height: 600px;
 }
-.poster-holder img {
+.poster-holder > img {
     max-height: 100%;
     max-width: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
+    height: 100%;
     margin: auto;
-} */
+}
 .navbar > a{
     color: #FF8A00;
 }
