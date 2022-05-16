@@ -4,7 +4,6 @@ import SeatRow from "../../components/seat-row/SeatRow";
 const TheaterRoomPage = (props) => {
   return (
     <div>
-      <MovieInfo></MovieInfo>
       <div className="screen d-flex flex-column justify-content-center mx-3 mt-5">
         <div style={{ backgroundColor: "#767676" }}>
           <h1

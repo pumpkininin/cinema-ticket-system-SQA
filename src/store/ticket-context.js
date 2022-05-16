@@ -1,27 +1,57 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useState } from "react";
 
-const TicketContext = React.createContext({
-    movieId: '',
-    showId: '',
-    roomId: '',
+const TicketContext = React.createContext({})
+
+const ticketReducer = (state, action) => {
+    switch (action.type){
+        case 'CHOOSE_SHOW':
+            return {
+                ...state,
+                seatIds: action.payload.seatIds,
+                combo: action.payload.combo,
+                process: 'CHOOSING_SHOW'
+            }
+        case 'CHOOSE_SEAT':
+            return {
+                ...state,
+                showId: action.payload.showId,
+                combo: action.payload.combo,
+                process: 'CHOSSING_SEAT'
+            }
+        case 'CHOOSE_COMBO':
+            return {
+                ...state,
+                seatIds: action.payload.seatIds,
+                showId: action.payload.showId,
+                process: 'CHOSSING_COMBO'
+            }
+        case 'CHECK_OUT':
+            return {
+                ...state,
+                process: 'CHECK_OUT'
+            }
+        default:
+            return state;
+    }
+    
+  }
+
+const initialState = {
+    showId :'',
     seatIds: [],
+    combo: {},
+    process: "CHOOSING_SHOW"
+}
 
-})
-
-export const AuthContextProvider = (props) => {
-    const ticketRequest = localStorage.getItem("ticket-request")
-    const [ticket, setTicket] = useState(ticketRequest)
+export const TicketContextProvider = (props) => {
+    const [ticketState, dispatch] = useReducer(ticketReducer, initialState)
 
     
-    const contextValue = {
-        ticket
-    };
-
-
     return (
-        <AuthContext.Provider value={contextValue}> 
+        <TicketContext.Provider value={[ticketState, dispatch]}> 
             {props.children}
-        </AuthContext.Provider>
+        </TicketContext.Provider>
     );
 }
+export default TicketContext

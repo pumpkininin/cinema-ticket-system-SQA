@@ -12,8 +12,8 @@ const ComboItem = (props) => {
       onClick = {selectCombo}
     >
       <img src="/image/combo.png" alt="" />
-      <p className="my-2">Item name</p>
-      <p className="my-2">Price</p>
+      <p className="my-2">{props.combo.comboName}</p>
+      <p className="my-2">{props.combo.price}</p>
     </div>
   );
 };

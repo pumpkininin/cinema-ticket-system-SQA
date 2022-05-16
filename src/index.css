@@ -138,6 +138,9 @@ Movie details
     cursor: pointer;
     text-align: center;
 }
+.chosen-movie-time-item{
+    background-color: #FF8A00 !important;
+}
 .movie-time-item:hover{
     background-color: #FF8A00;
 }

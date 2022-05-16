@@ -21,8 +21,8 @@ function App() {
         {authCtx.isLoggedIn && (
           <Route path='/' element={<HomePage />} />)}
         <Route path='/booking/moive-detail/:movieId' element={<MovieDetail />} />
-        <Route path='/booking/moive-detail/:id/room' element={<TheaterRoomPage />} />
-        <Route path='/booking/moive-detail/:id/room/combo' element={<ComboPage />} />
+        {/* <Route path='/booking/moive-detail/:id/room' element={<TheaterRoomPage />} />
+        <Route path='/booking/moive-detail/combo' element={<ComboPage />} /> */}
         <Route path='*' element={authCtx.isLoggedIn ? <Navigate to='/'/> : <AuthForm/> }/>
       </Routes>
 

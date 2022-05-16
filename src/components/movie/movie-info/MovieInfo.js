@@ -1,27 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import Trailer from "../../trailer/Trailer"
+
+import Trailer from "../../trailer/Trailer";
 import AuthContext from "../../../store/auth-context";
+import TicketContext from "../../../store/ticket-context";
 
 const MovieInfo = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [movieData, setMovie] = useState({})
-  const params = useParams();
-  const { id } = params;
   const location = useLocation();
   const pathName = location.pathname;
-  const selectingSeat = pathName.includes("room");
-  const authCtx = useContext(AuthContext)
-
-
+  const [state, dispatch] = useContext(TicketContext);
   const playTrailer = () => {
-    setIsPlaying(true)
-  }
+    setIsPlaying(true);
+  };
+
   const closeTrailerHandler = () => {
-    setIsPlaying(false)
-  }
+    setIsPlaying(false);
+  };
+
+  const choseShowHandler = (event) => {
+    switch (event) {
+      case "show":
+        dispatch({
+          type: "CHOOSE_SHOW",
+          payload: { seatIds: state.seatIds, combo: state.combo },
+        });
+        break;
+      case "seat":
+        dispatch({
+          type: "CHOOSE_SEAT",
+          payload: { showId: state.showId, combo: state.combo },
+        });
+        break;
+      case "combo":
+        dispatch({
+          type: "CHOOSE_COMBO",
+          payload: { seatIds: state.seatIds, showId: state.showId },
+        });
+        break;
+    }
+  };
   return (
     <div className="movie-info-section row m-3">
       <div className="poster-holder col-6">
@@ -32,42 +52,56 @@ const MovieInfo = (props) => {
         style={{ color: "white" }}
       >
         <h2 className="my-5">{props.movie.title}</h2>
-        <p className="my-3">
-          {props.movie.description}
-        </p>
-        {/* // <p className="my-2">Director: name</p> */}
-        {/* // <p className="my-2">Actors: name1, name2, name3, name4</p> */}
-        {
-          props.movie.genreSet !== undefined && <p className="my-2">Genre: {Array.from(props.movie.genreSet).map(genre => genre.genreName).join(", ")}</p>
-        }
-        {
-          props.movie.releaseDate !== undefined && <p className="my-2">Opening day: {props.movie.releaseDate.split("T")[0]}</p>
-        }
+        <p className="my-3">{props.movie.description}</p>
+        {props.movie.genreSet !== undefined && (
+          <p className="my-2">
+            Genre:{" "}
+            {Array.from(props.movie.genreSet)
+              .map((genre) => genre.genreName)
+              .join(", ")}
+          </p>
+        )}
+        {props.movie.releaseDate !== undefined && (
+          <p className="my-2">
+            Opening day: {props.movie.releaseDate.split("T")[0]}
+          </p>
+        )}
 
         <p className="my-2">Duration: {props.movie.duration}mins</p>
 
-        {isPlaying && <Trailer videoId={props.movie.trailerId} onClose={closeTrailerHandler}></Trailer>}
-
-        {!selectingSeat ? (
-          <div className="my-5 buttons d-flex flex-row justify-content-between">
-            <button onClick={playTrailer} className="p-4 movie-btn">Watch trailer</button>
-            <Link
-              to={`/booking/moive-detail/${id}/room`}
-              className="p-4 movie-btn"
-            >
-              Buy ticket
-            </Link>
-          </div>
-        ) : (
-          <div className="my-5 buttons d-flex flex-row justify-content-center">
-            <Link
-              to={`/booking/moive-detail/${id}/room/combo`}
-              className="p-4 movie-btn"
-            >
-              Next
-            </Link>
-          </div>
+        {isPlaying && (
+          <Trailer
+            videoId={props.movie.trailerId}
+            onClose={closeTrailerHandler}
+          ></Trailer>
         )}
+
+        <div className="my-2 buttons d-flex flex-row justify-content-center">
+          <button onClick={playTrailer} className="p-4 movie-btn">
+            Watch trailer
+          </button>
+        </div>
+        
+          <div className="my-5 buttons d-flex flex-row justify-content-between">
+            <button
+              className="p-4 movie-btn"
+              onClick={() => choseShowHandler("show")}
+            >
+              Choose Show
+            </button>
+            <button
+              className="p-4 movie-btn"
+              onClick={() => choseShowHandler("seat")}
+            >
+              Choose Seat
+            </button>
+            <button
+              className="p-4 movie-btn"
+              onClick={() => choseShowHandler("combo")}
+            >
+              Choose combo
+            </button>
+          </div>
       </div>
     </div>
   );
