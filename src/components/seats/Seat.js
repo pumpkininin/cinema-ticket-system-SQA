@@ -13,7 +13,7 @@ const Seat = (props) => {
       className={isSelected ? "isSelected " + defaultClass : defaultClass}
       onClick={toggleClass}
     >
-      A1
+      {props.seat.seatLocation}
     </div>
   );
 };

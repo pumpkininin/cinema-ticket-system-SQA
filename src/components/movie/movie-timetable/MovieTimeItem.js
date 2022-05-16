@@ -7,9 +7,9 @@ const MovieTimeItem = (props) => {
   const startTime = props.show.startTime.substring(11,16)
   const showId = props.show.showId;
   const chooseShowHander = () => {
-      dispatch({type: 'CHOOSE_SEAT', payload: showId})
+      dispatch({type: 'CHOOSE_SHOW', payload: showId})
   }
-  const classname = "movie-time-item col-2 m-3 " + (state.showId == showId ? "chosen-movie-time-item" : "")
+  const classname = "movie-time-item col-2 m-3 " + (state.showId === showId ? "chosen-movie-time-item" : "")
   return (
     <div className={classname}  onClick={chooseShowHander}>
       <p className="m-2">{startTime}</p>

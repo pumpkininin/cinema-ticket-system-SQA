@@ -8,7 +8,7 @@ const Carousel = (props) => {
         </ol>
         <div className="carousel-inner px-4">
           <div className="carousel-item active">
-            <img src="image/Carousel.png" className="d-block w-100" alt="..."/>
+            <img src="image/banner1.jpg" className="d-block w-100" alt="..."/>
           </div>
           <div className="carousel-item">
             <img src="image/Carousel.png" className="d-block w-100" alt="..."/>

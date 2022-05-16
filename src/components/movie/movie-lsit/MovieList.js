@@ -25,7 +25,7 @@ const MovieList = (props) => {
   }, [])
 
   return (
-    <div className="movie-list px-5 py-5 justify-content-between row container-fluid">
+    <div className="movie-list px-5 py-5 justify-content-md-between justify-content-center row container-fluid">
       {movieList.map(movie => <MoviePosterItem key={movie.movieId} movie={movie}></MoviePosterItem>)}
     </div>
   );

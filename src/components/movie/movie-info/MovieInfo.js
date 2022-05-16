@@ -21,23 +21,25 @@ const MovieInfo = (props) => {
   };
 
   const choseShowHandler = (event) => {
+    
     switch (event) {
       case "show":
         dispatch({
           type: "CHOOSE_SHOW",
-          payload: { seatIds: state.seatIds, combo: state.combo },
+          payload: state.showId,
         });
         break;
       case "seat":
-        dispatch({
-          type: "CHOOSE_SEAT",
-          payload: { showId: state.showId, combo: state.combo },
-        });
+        if (state.showId === '') {
+          alert("You need to choose show first!");
+          return;
+        }
+        dispatch({type: "CHOOSE_SEAT", payload: state.seatIds});
         break;
       case "combo":
         dispatch({
           type: "CHOOSE_COMBO",
-          payload: { seatIds: state.seatIds, showId: state.showId },
+          payload: state.combo,
         });
         break;
     }
@@ -81,27 +83,27 @@ const MovieInfo = (props) => {
             Watch trailer
           </button>
         </div>
-        
-          <div className="my-5 buttons d-flex flex-row justify-content-between">
-            <button
-              className="p-4 movie-btn"
-              onClick={() => choseShowHandler("show")}
-            >
-              Choose Show
-            </button>
-            <button
-              className="p-4 movie-btn"
-              onClick={() => choseShowHandler("seat")}
-            >
-              Choose Seat
-            </button>
-            <button
-              className="p-4 movie-btn"
-              onClick={() => choseShowHandler("combo")}
-            >
-              Choose combo
-            </button>
-          </div>
+
+        <div className="my-5 buttons d-flex flex-row justify-content-between">
+          <button
+            className="p-4 movie-btn"
+            onClick={() => choseShowHandler("show")}
+          >
+            Choose Show
+          </button>
+          <button
+            className="p-4 movie-btn"
+            onClick={() => choseShowHandler("seat")}
+          >
+            Choose Seat
+          </button>
+          <button
+            className="p-4 movie-btn"
+            onClick={() => choseShowHandler("combo")}
+          >
+            Choose combo
+          </button>
+        </div>
       </div>
     </div>
   );

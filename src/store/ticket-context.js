@@ -4,27 +4,35 @@ import { useState } from "react";
 const TicketContext = React.createContext({})
 
 const ticketReducer = (state, action) => {
-    switch (action.type){
+    console.log(action.payload);
+    switch (action.type) {
         case 'CHOOSE_SHOW':
             return {
                 ...state,
-                seatIds: action.payload.seatIds,
-                combo: action.payload.combo,
+                showId: action.payload,
                 process: 'CHOOSING_SHOW'
             }
         case 'CHOOSE_SEAT':
             return {
                 ...state,
-                showId: action.payload.showId,
-                combo: action.payload.combo,
+                seatIds: action.payload,
                 process: 'CHOSSING_SEAT'
             }
         case 'CHOOSE_COMBO':
             return {
                 ...state,
-                seatIds: action.payload.seatIds,
-                showId: action.payload.showId,
+                comboIds: action.payload,
                 process: 'CHOSSING_COMBO'
+            }
+        case 'SAVE_RESPONSE':
+            return {
+                ...state,
+                showDate: action.payload.showDate,
+                startTime: action.payload.startTime,
+                endTime: action.payload.endTime,
+                roomId: action.payload.roomId,
+                roomName: action.payload.roomName,
+                seatLocation: action.seatLocation
             }
         case 'CHECK_OUT':
             return {
@@ -34,22 +42,28 @@ const ticketReducer = (state, action) => {
         default:
             return state;
     }
-    
-  }
+
+}
 
 const initialState = {
-    showId :'',
+    showId: '',
+    showDate: '',
+    startTime: '',
+    endTime: '',
+    roomId: '',
+    roomName: '',
     seatIds: [],
-    combo: {},
+    seatLocation: [],
+    comboIds: {},
     process: "CHOOSING_SHOW"
 }
 
 export const TicketContextProvider = (props) => {
     const [ticketState, dispatch] = useReducer(ticketReducer, initialState)
 
-    
+
     return (
-        <TicketContext.Provider value={[ticketState, dispatch]}> 
+        <TicketContext.Provider value={[ticketState, dispatch]}>
             {props.children}
         </TicketContext.Provider>
     );

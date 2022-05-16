@@ -1,7 +1,43 @@
-import MovieInfo from "../../components/movie/movie-info/MovieInfo";
+import { useState, useContext, useEffect } from "react";
 import SeatRow from "../../components/seat-row/SeatRow";
+import AuthContext from "../../store/auth-context";
+import TicketContext from "../../store/ticket-context";
 
 const TheaterRoomPage = (props) => {
+  const [seats, setSeats] = useState([]);
+  const [ticketState, dispatch]  = useContext(TicketContext)
+  const authCtx = useContext(AuthContext)
+
+  useEffect(() => {
+    let url = `http://127.0.0.1:8080/api/staff/room-seat/${ticketState.roomId}`;
+    console.log(url);
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + authCtx.token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => data.sort((a, b) => a.seatLocation > b.seatLocation ? 1 : -1))
+      .then((data) => {
+        while(data.length > 0){
+          var added = data.splice(0, 10).sort((a,b) => a.id > b.id ? 1: -1);
+          setSeats(prevState => [...prevState, added])
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+  }, [ticketState.process])
+  
+  console.log(seats);
   return (
     <div>
       <div className="screen d-flex flex-column justify-content-center mx-3 mt-5">
@@ -15,11 +51,9 @@ const TheaterRoomPage = (props) => {
         </div>
       </div>
       <div className="seat-selection mt-5 mx-3 px-n2 py-5">
-        <SeatRow></SeatRow>
-        <SeatRow></SeatRow>
-        <SeatRow></SeatRow>
-        <SeatRow></SeatRow>
-        <SeatRow></SeatRow>
+        {
+          seats.map((seatArr,index) => <SeatRow key={index} seatArr={seatArr}/>)
+        }
       </div>
       <div className="note-section row">
         <div className="col-3">

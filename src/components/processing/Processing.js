@@ -7,15 +7,14 @@ import TheaterRoomPage from "../../pages/theater-room-page/TheaterRoomPage";
 import ComboPage from "../../pages/combo-page/ComboPage";
 import AuthContext from "../../store/auth-context";
 const Processing = (props) => {
-  console.log(props.movie);
   const [ticketState, dispatch] = useContext(TicketContext);
   const authCtx = useContext(AuthContext);
-  const [ticketData, setTicketData] = useState({});
 
   useEffect(() => {
-    let url = `http://127.0.0.1:8080/api/staff/ticket`;
+    let url = `http://127.0.0.1:8080/api/staff/ticket-fulfill`;
     fetch(url, {
       method: "POST",
+      body: JSON.stringify(ticketState),
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -28,9 +27,13 @@ const Processing = (props) => {
         }
       })
       .then((data) => {
-        console.log(data);
+        dispatch({type:"SAVE_RESPONSE", payload: data})
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  }, []);
+  }, [ticketState.showId, ticketState.seatIds, ticketState.comboIds]);
+
   switch (ticketState.process) {
     case "CHOOSING_SHOW":
       return (
