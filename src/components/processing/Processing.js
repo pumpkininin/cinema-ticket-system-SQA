@@ -12,6 +12,7 @@ const Processing = (props) => {
 
   useEffect(() => {
     let url = `http://127.0.0.1:8080/api/staff/ticket-fulfill`;
+    console.log(ticketState);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(ticketState),
@@ -32,7 +33,7 @@ const Processing = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [ticketState.showId, ticketState.seatIds, ticketState.comboIds]);
+  }, [ticketState.process]);
 
   switch (ticketState.process) {
     case "CHOOSING_SHOW":
@@ -42,13 +43,13 @@ const Processing = (props) => {
           <MovieTimeTableList movie={props.movie}></MovieTimeTableList>
         </Fragment>
       );
-    case "CHOSSING_SEAT":
+    case "CHOOSING_SEAT":
       return (
         <Fragment>
           <TheaterRoomPage />
         </Fragment>
       );
-    case "CHOSSING_COMBO":
+    case "CHOOSING_COMBO":
       return (
         <Fragment>
           <ComboPage />

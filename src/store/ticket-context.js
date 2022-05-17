@@ -1,38 +1,46 @@
 import React, { useReducer } from "react";
 import { useState } from "react";
+import { act } from "react-dom/test-utils";
 
 const TicketContext = React.createContext({})
 
 const ticketReducer = (state, action) => {
-    console.log(action.payload);
+    console.log(action);
     switch (action.type) {
         case 'CHOOSE_SHOW':
             return {
                 ...state,
-                showId: action.payload,
-                process: 'CHOOSING_SHOW'
+                showId: action.payload.showId,
+                process: action.payload.process
             }
         case 'CHOOSE_SEAT':
             return {
                 ...state,
-                seatIds: action.payload,
-                process: 'CHOSSING_SEAT'
+                seatIds: action.payload.seatIds,
+                process: action.payload.process
             }
         case 'CHOOSE_COMBO':
             return {
                 ...state,
-                comboIds: action.payload,
-                process: 'CHOSSING_COMBO'
+                comboIds: action.payload.comboIds,
+                process: action.payload.process
             }
         case 'SAVE_RESPONSE':
             return {
-                ...state,
+                movieId:action.payload.movieId,
+                movieTitle:action.payload.movieTitle,
+                showId: action.payload.showId,
                 showDate: action.payload.showDate,
                 startTime: action.payload.startTime,
                 endTime: action.payload.endTime,
                 roomId: action.payload.roomId,
                 roomName: action.payload.roomName,
-                seatLocation: action.seatLocation
+                seatIds: action.payload.seatIds,
+                seatLocation: action.payload.seatLocation,
+                seatPrice: action.payload.seatPrice,
+                comboIds: action.payload.comboIds,
+                comboPrice: action.payload.comboPrice,
+                process: action.payload.process
             }
         case 'CHECK_OUT':
             return {
@@ -46,6 +54,8 @@ const ticketReducer = (state, action) => {
 }
 
 const initialState = {
+    movieId:'',
+    movieTitle:'',
     showId: '',
     showDate: '',
     startTime: '',
@@ -54,7 +64,9 @@ const initialState = {
     roomName: '',
     seatIds: [],
     seatLocation: [],
-    comboIds: {},
+    seatPrice: '',
+    comboIds: [{}],
+    comboPrice: '',
     process: "CHOOSING_SHOW"
 }
 

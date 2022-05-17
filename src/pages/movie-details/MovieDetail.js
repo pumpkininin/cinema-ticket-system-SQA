@@ -6,6 +6,8 @@ import MovieInfo from '../../components/movie/movie-info/MovieInfo';
 import AuthContext from '../../store/auth-context';
 import { TicketContextProvider } from '../../store/ticket-context';
 import Processing from '../../components/processing/Processing';
+import BreadCrumb from '../../components/breadcrumb/BreadCrumb';
+import TicketDetail from '../../components/ticket-detail/TicketDetail';
 
 
 
@@ -35,6 +37,8 @@ const MovieDetail = (props) => {
 
     return (<TicketContextProvider>
             <MovieInfo movie={movie}></MovieInfo>
+            <TicketDetail />
+            <BreadCrumb />
             <Processing movie={movie} />
     </TicketContextProvider>);
 }

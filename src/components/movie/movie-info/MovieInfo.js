@@ -10,8 +10,6 @@ import TicketContext from "../../../store/ticket-context";
 const MovieInfo = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const location = useLocation();
-  const pathName = location.pathname;
-  const [state, dispatch] = useContext(TicketContext);
   const playTrailer = () => {
     setIsPlaying(true);
   };
@@ -20,30 +18,7 @@ const MovieInfo = (props) => {
     setIsPlaying(false);
   };
 
-  const choseShowHandler = (event) => {
-    
-    switch (event) {
-      case "show":
-        dispatch({
-          type: "CHOOSE_SHOW",
-          payload: state.showId,
-        });
-        break;
-      case "seat":
-        if (state.showId === '') {
-          alert("You need to choose show first!");
-          return;
-        }
-        dispatch({type: "CHOOSE_SEAT", payload: state.seatIds});
-        break;
-      case "combo":
-        dispatch({
-          type: "CHOOSE_COMBO",
-          payload: state.combo,
-        });
-        break;
-    }
-  };
+  
   return (
     <div className="movie-info-section row m-3">
       <div className="poster-holder col-6">
@@ -81,27 +56,6 @@ const MovieInfo = (props) => {
         <div className="my-2 buttons d-flex flex-row justify-content-center">
           <button onClick={playTrailer} className="p-4 movie-btn">
             Watch trailer
-          </button>
-        </div>
-
-        <div className="my-5 buttons d-flex flex-row justify-content-between">
-          <button
-            className="p-4 movie-btn"
-            onClick={() => choseShowHandler("show")}
-          >
-            Choose Show
-          </button>
-          <button
-            className="p-4 movie-btn"
-            onClick={() => choseShowHandler("seat")}
-          >
-            Choose Seat
-          </button>
-          <button
-            className="p-4 movie-btn"
-            onClick={() => choseShowHandler("combo")}
-          >
-            Choose combo
           </button>
         </div>
       </div>

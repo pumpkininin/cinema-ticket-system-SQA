@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, Fragment } from "react";
 import SeatRow from "../../components/seat-row/SeatRow";
 import AuthContext from "../../store/auth-context";
 import TicketContext from "../../store/ticket-context";
@@ -9,8 +9,7 @@ const TheaterRoomPage = (props) => {
   const authCtx = useContext(AuthContext)
 
   useEffect(() => {
-    let url = `http://127.0.0.1:8080/api/staff/room-seat/${ticketState.roomId}`;
-    console.log(url);
+    let url = `http://127.0.0.1:8080/api/staff/show/unavailableSeat/${ticketState.showId}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -26,20 +25,20 @@ const TheaterRoomPage = (props) => {
       })
       .then((data) => data.sort((a, b) => a.seatLocation > b.seatLocation ? 1 : -1))
       .then((data) => {
-        while(data.length > 0){
-          var added = data.splice(0, 10).sort((a,b) => a.id > b.id ? 1: -1);
+        for( let i = 0; i < data.length; i+=10){
+          let added = data.slice(i, i+ 10);
+          added.sort((a,b) => a.id > b.id ? 1: -1);
           setSeats(prevState => [...prevState, added])
         }
+        
       })
       .catch((err) => {
         console.log(err);
       });
-      
   }, [ticketState.process])
-  
-  console.log(seats);
+
   return (
-    <div>
+    <Fragment>
       <div className="screen d-flex flex-column justify-content-center mx-3 mt-5">
         <div style={{ backgroundColor: "#767676" }}>
           <h1
@@ -99,7 +98,7 @@ const TheaterRoomPage = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default TheaterRoomPage;
