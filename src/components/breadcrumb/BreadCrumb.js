@@ -14,11 +14,11 @@ const BreadCrumb = (props) => {
             case "show":
                 dispatch({
                     type: "CHOOSE_SHOW",
-                    payload: {showId: state.showId, process: "CHOOSING_SHOW"},
+                    payload: {showId: state.showId,seatIds:state.seatIds, process: "CHOOSING_SHOW"},
                 });
                 break;
             case "seat":
-                if (state.showId === '') {
+                if (state.showId === '' || state.showId === null) {
                     alert("You need to choose show first!");
                     return;
                 }

@@ -26,7 +26,7 @@ const ComboItem = (props) => {
     } else {
       const combo = ticketState.comboIds;
       for (let subCombo of combo) {
-        if (subCombo.id === id) {
+        if (subCombo.comboId === id) {
           if (subCombo.quantity === 1) {
             combo.pop(subCombo)
           }

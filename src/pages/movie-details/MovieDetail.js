@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, Fragment } from 'react';
 
 
 import MovieInfo from '../../components/movie/movie-info/MovieInfo';
@@ -35,11 +35,11 @@ const MovieDetail = (props) => {
 
     }, [param.movieId])
 
-    return (<TicketContextProvider>
+    return (<Fragment>
             <MovieInfo movie={movie}></MovieInfo>
-            <TicketDetail />
+            <TicketDetail isFinal={false}/>
             <BreadCrumb />
             <Processing movie={movie} />
-    </TicketContextProvider>);
+    </Fragment>);
 }
 export default MovieDetail;

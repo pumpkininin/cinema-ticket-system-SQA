@@ -1,29 +1,33 @@
 import React, { useReducer } from "react";
-import { useState } from "react";
-import { act } from "react-dom/test-utils";
 
 const TicketContext = React.createContext({})
 
 const ticketReducer = (state, action) => {
-    console.log(action);
     switch (action.type) {
         case 'CHOOSE_SHOW':
             return {
                 ...state,
                 showId: action.payload.showId,
+                seatIds: action.payload.seatIds,
                 process: action.payload.process
             }
         case 'CHOOSE_SEAT':
             return {
                 ...state,
                 seatIds: action.payload.seatIds,
+                seatLocation: action.payload.seatLocation,
                 process: action.payload.process
             }
         case 'CHOOSE_COMBO':
             return {
                 ...state,
                 comboIds: action.payload.comboIds,
+                comboPrice: action.payload.comboPrice,
                 process: action.payload.process
+            }
+        case "MODIFY":
+            return {
+
             }
         case 'SAVE_RESPONSE':
             return {
@@ -65,7 +69,7 @@ const initialState = {
     seatIds: [],
     seatLocation: [],
     seatPrice: '',
-    comboIds: [{}],
+    comboIds: [],
     comboPrice: '',
     process: "CHOOSING_SHOW"
 }

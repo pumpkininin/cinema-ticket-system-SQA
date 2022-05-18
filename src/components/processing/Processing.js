@@ -12,7 +12,6 @@ const Processing = (props) => {
 
   useEffect(() => {
     let url = `http://127.0.0.1:8080/api/staff/ticket-fulfill`;
-    console.log(ticketState);
     fetch(url, {
       method: "POST",
       body: JSON.stringify(ticketState),

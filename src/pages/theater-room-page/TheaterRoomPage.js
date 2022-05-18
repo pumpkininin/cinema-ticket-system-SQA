@@ -36,7 +36,7 @@ const TheaterRoomPage = (props) => {
         console.log(err);
       });
   }, [ticketState.process])
-
+  
   return (
     <Fragment>
       <div className="screen d-flex flex-column justify-content-center mx-3 mt-5">
