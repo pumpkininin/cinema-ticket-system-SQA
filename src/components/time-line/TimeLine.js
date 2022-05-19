@@ -3,6 +3,8 @@ const TimeLine = (props) => {
     var dateArr = []
     var today = new Date();
     var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+
+    
     for (let i = 0; i < 7; i++) {
         var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000) * i);
         dayArr.push(tomorrow.toString().substring(0, 4))
@@ -16,7 +18,7 @@ const TimeLine = (props) => {
             <div className="time-line--week d-flex flex-row justify-content-around">
                 {
                     dateArr.map((date, index) => 
-                        (<div className="date-item d-flex flex-column justify-content-center" key={index}>
+                        (<div onClick={() => props.datePickerHandler(date)} className="date-item d-flex flex-column justify-content-center" key={index}>
                             <p>{dayArr[index]}</p>
                             <p>{date}</p>
                         </div>)

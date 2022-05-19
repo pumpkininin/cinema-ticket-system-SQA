@@ -51,6 +51,23 @@ const ticketReducer = (state, action) => {
                 ...state,
                 process: 'CHECK_OUT'
             }
+        case 'FINISH':
+            return {
+                movieId:'',
+                movieTitle:'',
+                showId: '',
+                showDate: '',
+                startTime: '',
+                endTime: '',
+                roomId: '',
+                roomName: '',
+                seatIds: [],
+                seatLocation: [],
+                seatPrice: '',
+                comboIds: [],
+                comboPrice: '',
+                process: "CHOOSING_SHOW"
+            }
         default:
             return state;
     }

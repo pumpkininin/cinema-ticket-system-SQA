@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import TicketContext from "../../store/ticket-context";
+import TicketContext from "../../../store/ticket-context";
 
 const Seat = (props) => {
   const seatId = props.seat.id;
@@ -7,9 +7,6 @@ const Seat = (props) => {
   const [seatArr, setSeatArr] = useState(
     ticketState.seatIds == null ? [] : ticketState.seatIds
   );
-  if(seatArr.includes(seatId)){
-    console.log(seatArr);
-  }
   const [status, setStatus] = useState(props.seat.status);
   const [defaultClass, setDefaultClass] = useState("seat px-4 py-3");
 
@@ -55,7 +52,7 @@ const Seat = (props) => {
   };
 
   return (
-    <div className={defaultClass} onClick={chooseSeatHandler}>
+    <div className={defaultClass} id={props.seat.id} onClick={chooseSeatHandler}>
       {props.seat.seatLocation}
     </div>
   );

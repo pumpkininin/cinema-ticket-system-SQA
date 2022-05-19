@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, Fragment } from "react";
-import SeatRow from "../../components/seat-row/SeatRow";
+import SeatRow from "../../components/seat/seat-row/SeatRow"
 import AuthContext from "../../store/auth-context";
 import TicketContext from "../../store/ticket-context";
 
