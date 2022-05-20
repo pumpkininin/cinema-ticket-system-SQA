@@ -6,11 +6,13 @@ import Header from "./UI/header/Header";
 import ComboPage from "./pages/combo-page/ComboPage";
 import HomePage from "./pages/homepage/HomePage";
 import MovieDetail from "./pages/movie-details/MovieDetail";
-import TheaterRoomPage from "./pages/theater-room-page/TheaterRoomPage";
-import AuthForm from "./pages/loginpage/AuthForm";
+import OrderPage from "./pages/orders/OrderPage";
+import AuthForm from "./pages/authPage/AuthForm";
 import AuthContext from "./store/auth-context";
 import CheackOutPage from "./pages/check-out/CheackOutPage";
 import { TicketContextProvider } from "./store/ticket-context";
+import Profile from "./pages/profile/Profile";
+import ChangeProfile from "./pages/profile/ChangeProfile";
 function App() {
   const authCtx = useContext(AuthContext);
 
@@ -28,6 +30,9 @@ function App() {
             element={<MovieDetail />}
           />
           <Route path="/booking/checkout" element={<CheackOutPage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/changeProfile" element={<ChangeProfile />} />
           <Route
             path="*"
             element={authCtx.isLoggedIn ? <Navigate to="/" /> : <AuthForm />}

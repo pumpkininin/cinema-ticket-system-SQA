@@ -15,8 +15,8 @@ export const AuthContextProvider = (props) => {
     const userLoggedIn = !!token;
 
     const logoutHander = () => {
-        setToken(null);
         localStorage.removeItem("cine-token")
+        setToken(null);
     }
 
     const loginHandler = (token) => {
